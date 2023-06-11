@@ -98,7 +98,7 @@ namespace ServicesStore.Api.Book.Tests
         [Fact]
         public async void CreateBook()
         {
-            //Debugger.Launch();
+            //Debugger.Launch(); //For testing
 
             var options = new DbContextOptionsBuilder<BookShopContext>()
                 .UseInMemoryDatabase(databaseName: "BookDB")
