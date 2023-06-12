@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  servicesstore.api.author:
+    image: ${DOCKER_REGISTRY-}servicesstoreapiauthor
+    build:
+      context: .
+      dockerfile: ServicesStore.Api.Author/Dockerfile
+  servicesstore.api.book:
+    image: ${DOCKER_REGISTRY-}servicesstoreapibook
+    build:
+      context: .
+      dockerfile: ServicesStore.Api.Book/Dockerfile
+
+  servicesstore.api.basket:
+    image: ${DOCKER_REGISTRY-}servicesstoreapibasket
+    build:
+      context: .
+      dockerfile: ServicesStore.Api.Basket/Dockerfile
+
+  servicesstore.api.gateway:
+    image: ${DOCKER_REGISTRY-}servicesstoreapigateway
+    build:
+      context: .
+      dockerfile: ServicesStore.Api.Gateway/Dockerfile
+
+networks:
+    default:
+     external:
+      name: microservicenet
+
+
+

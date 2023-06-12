@@ -35,10 +35,7 @@ namespace ServicesStore.Api.Basket
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson().AddFluentValidation(cfg => {
-                cfg.RegisterValidatorsFromAssemblyContaining<Creator>();
-                ValidatorOptions.LanguageManager.Culture = new CultureInfo("en-US");
-            });
+            services.AddScoped<IBooksService, BooksService>();
 
             services.AddDbContext<BasketContext>(opt => {
                 opt.UseMySQL(Configuration.GetConnectionString("BasketDB"));
@@ -48,12 +45,17 @@ namespace ServicesStore.Api.Basket
             var config = new TypeAdapterConfig();
             services.AddSingleton(config);
             services.AddScoped<IMapper, ServiceMapper>();
-            services.AddScoped<IBooksService, BooksService>();
+            
 
             services.AddHttpClient("Books", config =>
             {
 
                 config.BaseAddress = new Uri(Configuration["Services:Books"]);
+            });
+
+            services.AddControllers().AddNewtonsoftJson().AddFluentValidation(cfg => {
+                cfg.RegisterValidatorsFromAssemblyContaining<Creator>();
+                ValidatorOptions.LanguageManager.Culture = new CultureInfo("en-US");
             });
         }
 
